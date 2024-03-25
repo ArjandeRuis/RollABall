@@ -6,7 +6,7 @@ html {
 }
 
 #game-container {
- position: relative;
+ position: sticky;
  width: 500px;
  height: 500px;
  margin: 50px auto;
