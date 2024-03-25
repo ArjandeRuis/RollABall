@@ -26,7 +26,7 @@ document.addEventListener('keydown', function(event) {
     }
 // Controleer winvoorwaarde
     if (checkCollision(ball, goal)) {
-        alert('Gefeliciteerd! Je hebt gewonnen!');
+        alert('Misschien iets te makkelijk level?');
     }
 });
 
