@@ -1,16 +1,361 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roll a Ball Game</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RollABall Game</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    #container {
+      width: 100%;
+      height: 100vh;
+      background-color: #333;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    #ball {
+      width: 30px;
+      height: 30px;
+      background-color: red;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    #target {
+      width: 50px;
+      height: 50px;
+      background-color: green;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .obstacle {
+      width: 50px;
+      height: 50px;
+      background-color: black;
+      position: absolute;
+    }
+
+    .spike {
+      width: 50px;
+      height: 50px;
+      background-color: red;
+      position: absolute;
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    }
+
+    .speedup {
+      width: 50px;
+      height: 50px;
+      background-color: blue;
+      position: absolute;
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      font-size: 24px;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #restart-btn {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      padding: 10px 20px;
+      background-color: #ddd;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #score {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      color: white;
+      font-size: 20px;
+      display: none;
+    }
+
+    #start-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 64px;
+      color: black;
+    }
+  </style>
 </head>
+
 <body>
-    <div id="game-container">
-        <div id="ball"></div>
-        <div id="goal"></div>
-    </div>
-    <script src="script.js"></script>
+  <div id="start-text">EA Sports</div>
+
+  <div id="container">
+    <div id="ball"></div>
+    <div id="target"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="obstacle" style="top: 250px; left:200px"></div>
+    <div class="spike" style="top: 300px; left: 300px;"></div>
+    <div class="spike" style="top: 150px; left: 400px;"></div>
+    <div class="speedup" style="top: 250px; left: 500px;">&#8599;</div>
+    <div class="speedup" style="top: 450px; left: 100px;">&#8599;</div>
+  </div>
+
+  <button id="restart-btn">Restart</button>
+
+  <div id="score">Score: 0</div>
+
+  <script>
+    const startText = document.getElementById('start-text');
+    const container = document.getElementById('container');
+    const ball = document.getElementById('ball');
+    const target = document.getElementById('target');
+    const restartBtn = document.getElementById('restart-btn');
+    const scoreDisplay = document.getElementById('score');
+
+    let obstacles = document.querySelectorAll('.obstacle');
+    let spikes = document.querySelectorAll('.spike');
+    let speedup = document.querySelectorAll('.speedup');
+
+    let level = 1;
+    let speedMultiplier = 1;
+    let score = 0;
+    let initialScore = 0;
+    let dx = 0;
+    let dy = 0;
+
+    // Show the start text for 5 seconds and then start the game
+    setTimeout(() => {
+      startText.style.display = 'none';
+      container.style.display = 'flex';
+      scoreDisplay.style.display = 'block';
+      initialScore = score; // Store initial score
+      startGame();
+    }, 5000);
+
+    document.addEventListener('keydown', changeDirection);
+    restartBtn.addEventListener('click', resetGame);
+
+    function startGame() {
+      // Start rolling the ball automatically
+      setInterval(moveBall, 50);
+    }
+
+    function moveBall() {
+      const speed = 5 * speedMultiplier;
+
+      let x = parseInt(ball.style.left) || 0;
+      let y = parseInt(ball.style.top) || 0;
+      // Update ball position based on current direction
+      x += dx * speed;
+      y += dy * speed;
+
+      // Check collision with obstacles
+      let obstacleCollision = false;
+      for (const obstacle of obstacles) {
+        if (collision(ball, obstacle)) {
+          obstacleCollision = true;
+          score -= 2; // Deduct 2 points for hitting an obstacle
+          break;
+        }
+      }
+
+      // Check collision with spikes
+      for (const spike of spikes) {
+        if (collision(ball, spike)) {
+          alert("You hit a spike! Restarting level...");
+          resetGame();
+          score -= 25; // Deduct 25 points for hitting a spike
+          return;
+        }
+      }
+
+      // Check collision with speedup block
+      for (const speedupBlock of speedup) {
+        if (collision(ball, speedupBlock)) {
+          score += 10; // Increase score by 10 for hitting a speedup block
+          speedMultiplier = 10; // Increase speed 10x when hitting speedup block
+          setTimeout(() => {
+            speedMultiplier = 1; // Reset speed after a short delay
+          }, 2000);
+        }
+      }
+
+      // Move the ball if no obstacle collision
+      if (!obstacleCollision) {
+        ball.style.left = `${x}px`;
+        ball.style.top = `${y}px`;
+      }
+
+      // Check if the ball reaches the target
+      if (collision(ball, target)) {
+        score += 100; // Increase score by 100 for hitting the target
+        scoreDisplay.textContent = `Score: ${score - initialScore}`;
+        level++;
+        alert(`Level ${level}`);
+        resetGame();
+      }
+
+      // Update score display
+      scoreDisplay.textContent = `Score: ${score - initialScore}`;
+    }
+
+    function changeDirection(event) {
+      switch (event.key) {
+        case 'ArrowUp':
+          dx = 0;
+          dy = -1;
+          break;
+        case 'ArrowDown':
+          dx = 0;
+          dy = 1;
+          break;
+        case 'ArrowLeft':
+          dx = -1;
+          dy = 0;
+          break;
+        case 'ArrowRight':
+          dx = 1;
+          dy = 0;
+          break;
+        default:
+          return;
+      }
+    }
+
+    function collision(element1, element2) {
+      const rect1 = element1.getBoundingClientRect();
+      const rect2 = element2.getBoundingClientRect();
+
+      return !(
+        rect1.right < rect2.left ||
+        rect1.left > rect2.right ||
+        rect1.bottom < rect2.top ||
+        rect1.top > rect2.bottom
+      );
+    }
+
+    function resetGame() {
+      // Reset ball position and speed multiplier
+      ball.style.left = '0px';
+      ball.style.top = '0px';
+      speedMultiplier = level >= 10 ? 4 : 2; // Adjust speed based on level
+
+      // Randomize target position
+      const containerRect = container.getBoundingClientRect();
+      const targetX = Math.random() * (containerRect.width - 50);
+      const targetY = Math.random() * (containerRect.height - 50);
+
+      target.style.left = `${targetX}px`;
+      target.style.top = `${targetY}px`;
+
+      // Reset obstacles
+      obstacles.forEach((obstacle) => {
+        obstacle.style.top = `${Math.random() * (containerRect.height - 50)}px`;
+        obstacle.style.left = `${Math.random() * (containerRect.width - 50)}px`;
+      });
+
+      // Reset spikes
+      spikes.forEach((spike) => {
+        spike.style.top = `${Math.random() * (containerRect.height - 50)}px`;
+        spike.style.left = `${Math.random() * (containerRect.width - 50)}px`;
+      });
+
+      // Reset speedups
+      speedup.forEach((block) => {
+        block.style.top = `${Math.random() * (containerRect.height - 50)}px`;
+        block.style.left = `${Math.random() * (containerRect.width - 50)}px`;
+      });
+
+      // Ensure exactly 75 obstacles, 10 spikes, and 2 speedups
+      while (obstacles.length > 75) {
+        obstacles[obstacles.length - 1].remove();
+        obstacles = document.querySelectorAll('.obstacle');
+      }
+      while (spikes.length > 10) {
+        spikes[spikes.length - 1].remove();
+        spikes = document.querySelectorAll('.spike');
+      }
+      while (speedup.length > 2) {
+        speedup[speedup.length - 1].remove();
+        speedup = document.querySelectorAll('.speedup');
+      }
+
+      // Check if the ball reaches the target
+      if (collision(ball, target)) {
+        score += 100; // Increase score by 100 for hitting the target
+        level++;
+        alert(`Level ${level}`);
+      }
+    }
+  </script>
 </body>
+
 </html>
